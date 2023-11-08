@@ -1,4 +1,4 @@
-const Restaurant = require("./models/index")
+const Restaurant  = require("./models/index")
 const { seedRestaurant } = require("./seedData");
 const db = require("./db/connection")
 
