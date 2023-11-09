@@ -40,6 +40,17 @@ describe('./restaurants endpoint', () => {
     test("new restaurant", async () => {
         const response = await request(app).post("/restaurants").send({name: "KFC", location: "Kentuky", cuisine: "chicken"});
         const rest = await Restaurants.findAll();
-        expect(restQuantity + 1).toEqual(rest.length);
+        restQuantity += 1;
+        expect(restQuantity).toEqual(rest.length);
+    })
+    test("update restaurant", async () => {
+        const response = await request(app).put("/restaurants/2").send({name: "No more apples bees"});
+        const rest = await Restaurants.findByPk(2);
+        expect(rest.name).toEqual("No more apples bees");
+    })
+    test("delete restaurant", async () => {
+        const response = await request(app).delete("/restaurants/3");
+        const rest = await Restaurants.findAll();
+        expect(restQuantity - 1).toEqual(rest.length);
     })
 })

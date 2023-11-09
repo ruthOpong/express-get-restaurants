@@ -36,8 +36,8 @@ router.post('/', async (request, response, next) => {
 router.put('/:id', async (request, response) => {
     let restId = request.params.id;
     let rest = await Restaurant.findByPk(restId);
-    await rest.update(request.body);
-    response.json(request.body);
+    const restaurant = await rest.update(request.body);
+    response.json(JSON.stringify(restaurant));
 })
 
 router.delete('/:id', async (request, response) => {
