@@ -54,3 +54,17 @@ describe('./restaurants endpoint', () => {
         expect(restQuantity - 1).toEqual(rest.length);
     })
 })
+describe('./validation checks', () => {
+    test("no name test", async () => {
+        const response = await request(app).post("/restaurants").send({location: "Kentuky", cuisine: "chicken"});
+        expect(response.body.error[0].msg).toEqual("Invalid value");
+    })
+    test("no cuisine test", async () => {
+        const response = await request(app).post("/restaurants").send({location: "Kentuky", name:"Hat"});
+        expect(response.body.error[0].msg).toEqual("Invalid value");
+    })
+    test("no location test", async () => {
+        const response = await request(app).post("/restaurants").send({ cuisine: "chicken", name:"cuisine"});
+        expect(response.body.error[0].msg).toEqual("Invalid value");
+    })
+})
